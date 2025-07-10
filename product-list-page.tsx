@@ -1,3 +1,6 @@
+"use client"
+
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -5,6 +8,12 @@ import { Badge } from "@/components/ui/badge"
 import { Star, ShoppingCart } from "lucide-react"
 
 export default function ProductListPage() {
+  const router = useRouter()
+
+  const handleProductClick = (productId: number) => {
+    router.push(`/product/${productId}`)
+  }
+
   const product = {
     id: 1,
     name: "Premium Wireless Headphones",
@@ -29,7 +38,10 @@ export default function ProductListPage() {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+          <Card
+            className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+            onClick={() => handleProductClick(product.id)}
+          >
             <div className="relative">
               <Image
                 src={product.image || "/placeholder.svg"}
